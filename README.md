@@ -9,7 +9,7 @@ Follow these steps to get the project up and running:
 1. **Clone the Project**  
    Clone this repository to your local machine:
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/smmartdev/test-nestjs-mariadb-crud.git
    ```
 
 2. **Install Dependencies**  
