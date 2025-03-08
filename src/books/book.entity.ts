@@ -1,5 +1,6 @@
-import { Author } from 'src/authors/author.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+// book.entity.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Author } from '../authors/author.entity';
 
 @Entity()
 export class Book {
@@ -10,12 +11,11 @@ export class Book {
   title: string;
 
   @Column()
-  publishedDate:Date;
+  publishedDate: string;
 
-  @ManyToOne(() => Author)
-  @JoinColumn({ name: 'authorId' })  // Ensure that the foreign key is 'authorId'
+  // Many books can belong to one author
+  @ManyToOne(() => Author, (author) => author.books)
+  @JoinColumn({ name: 'authorId' })  // This defines the foreign key column (authorId) on the books table
   author: Author;
-
-  @Column()
-  authorId: number; // Foreign key to Author's id
 }
+

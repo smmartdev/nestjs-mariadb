@@ -3,20 +3,17 @@ import { IsString, IsNotEmpty, IsDateString, IsInt } from 'class-validator';
 
 export class CreateBookDto {
   
-    @IsString()
-    @IsNotEmpty()
-    title: string;
+  @IsString()
+  @IsNotEmpty()
+  title: string;
 
-    @IsDateString()
-    publishedDate: Date;
-  
-    @IsString()
-    @IsNotEmpty()
-    author: string;
+  @IsDateString()
+  @IsNotEmpty()
+  publishedDate: string;  // Date string in "YYYY-MM-DD" format
 
-    @IsInt()
-    @IsNotEmpty()
-    authorId: number;  // Only the authorId is required here
+  @IsInt()
+  @IsNotEmpty()
+  authorId: number;  // Au
 
   }
 

@@ -5,7 +5,8 @@ import { Book } from './book.entity';
 import { CreateBookDto } from './create-book.dto';
 import { NotFoundException } from '@nestjs/common'; // for throwing HTTP exceptions
 import { UpdateBookDto } from './update-book.dto';
-import { Author } from 'src/authors/author.entity';
+import { Author } from '../authors/author.entity';
+
 
 
 @Injectable()

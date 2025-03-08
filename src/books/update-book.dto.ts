@@ -8,11 +8,7 @@ export class UpdateBookDto {
   
   @IsDateString()
   @IsOptional()
-  publishedDate?: Date; // Optional, because it's only updated if provided
-  
-  @IsString()
-  @IsOptional()
-  author?: string; // Optional, because it's only updated if provided
+  publishedDate?: string; // Optional, because it's only updated if provided
 
   @IsInt()
   @IsOptional()
