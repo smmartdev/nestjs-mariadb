@@ -6,6 +6,10 @@ import { BooksModule } from './books/books.module';
 import { Book } from './books/book.entity';
 import { AuthorsModule } from './authors/authors.module';
 import { Author } from './authors/author.entity';
+import { RefreshToken } from './auth/refresh-token.entity';
+import { User } from './users/user.entity';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,11 +20,13 @@ import { Author } from './authors/author.entity';
       username: 'root',   // Your MariaDB username
       password: 'root', // Your MariaDB password
       database: 'nestjs',  // Name of your MariaDB database
-      entities: [Book,Author],
+      entities: [Book,Author,User,RefreshToken],
       synchronize: true,  // Automatically create database schema
     }),
     BooksModule,
-    AuthorsModule
+    AuthorsModule,
+    UsersModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

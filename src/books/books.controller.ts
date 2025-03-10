@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './create-book.dto';
 import { Book } from './book.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('books')
 export class BooksController {
@@ -12,6 +13,7 @@ export class BooksController {
     return this.booksService.create(createBookDto);
   }
 
+  
   @Get()
   findAll(): Promise<Book[]> {
     return this.booksService.findAll();
