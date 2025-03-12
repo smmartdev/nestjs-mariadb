@@ -10,6 +10,8 @@ import { RefreshToken } from './auth/refresh-token.entity';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { Cart } from './carts/cart.entity';
+import { CartBook } from './carts/cart-book.enitiy';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',   // Your MariaDB username
       password: 'root', // Your MariaDB password
       database: 'nestjs',  // Name of your MariaDB database
-      entities: [Book,Author,User,RefreshToken],
+      entities: [Book,Author,User,RefreshToken,Cart,CartBook],
       synchronize: true,  // Automatically create database schema
     }),
     BooksModule,

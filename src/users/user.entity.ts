@@ -1,6 +1,7 @@
 // user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
 import { RefreshToken } from '../auth/refresh-token.entity';
+import { Cart } from 'src/carts/cart.entity';
 
 export enum Role {
   USER = 'user',
@@ -44,5 +45,10 @@ export class User {
   // One User can have many refreshTokens
   @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.userId)
   refreshTokens: RefreshToken[];
+
+
+    @OneToOne(() => Cart, cart => cart.user, { cascade: true })
+    cart: Cart;
+
 }
 

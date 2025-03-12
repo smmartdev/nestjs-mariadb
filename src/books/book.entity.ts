@@ -1,6 +1,8 @@
 // book.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, OneToMany } from 'typeorm';
 import { Author } from '../authors/author.entity';
+import { Cart } from 'src/carts/cart.entity';
+import { CartBook } from 'src/carts/cart-book.enitiy';
 
 @Entity()
 export class Book {
@@ -15,7 +17,12 @@ export class Book {
 
   // Many books can belong to one author
   @ManyToOne(() => Author, (author) => author.books)
-  @JoinColumn({ name: 'authorId' })  // This defines the foreign key column (authorId) on the books table
+  @JoinColumn({ name: 'authorId' }) 
   author: Author;
+
+
+  @OneToMany(() => CartBook, (cartBook) => cartBook.book)
+  cartBooks: CartBook[];
+
 }
 
