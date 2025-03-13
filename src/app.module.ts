@@ -11,6 +11,7 @@ import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { Cart } from './cart/cart.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -27,7 +28,11 @@ import { Cart } from './cart/cart.entity';
     BooksModule,
     AuthorsModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env', // Path to your .env file
+      isGlobal: true, // Makes the config accessible globally
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

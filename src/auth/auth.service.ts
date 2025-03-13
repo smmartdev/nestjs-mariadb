@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/user.entity';
 import { log } from 'console';
 import { LoginDto, SignupDto } from './dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,8 @@ export class AuthService {
     @InjectRepository(RefreshToken)
     private refreshTokenRepository: Repository<RefreshToken>,
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private usersRepository: Repository<User>,
+    private configService: ConfigService
 
   ) { }
 
@@ -50,9 +52,9 @@ export class AuthService {
     // Create JWT tokens for the new user
     const payload = { username: user.username, sub: user.id };
 
-    const access_token = this.jwtService.sign(payload, { expiresIn: '15m', secret: 'accessToken' });
-    const refresh_token = this.jwtService.sign(payload, { expiresIn: '7d', secret: 'refreshToken' });
-
+    const access_token = this.jwtService.sign(payload, { expiresIn: '15m', secret: this.configService.get('JWT_SECRET') });
+    const refresh_token = this.jwtService.sign(payload, { expiresIn: '7d', secret: this.configService.get('JWT_SECRET') });
+    console.log(this.configService.get('JWT_SECRET'))
     // Store the refresh token in the database
     await this.refreshTokenRepository.save({
       userId: user.id,
