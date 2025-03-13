@@ -11,9 +11,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { JwtAuthGuard } from './auth/jwt-auth.guard'; // Import JwtAuthGuard
+import { Reflector } from '@nestjs/core';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+
+  // Apply JwtAuthGuard globally
+  // app.useGlobalGuards(new JwtAuthGuard(new Reflector()));
+
 
   // Enable global validation
   app.useGlobalPipes(
