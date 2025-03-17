@@ -6,27 +6,24 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Role } from './user.entity'; // Assuming you use Role enum
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Cart } from 'src/carts/cart.entity';
+import { SameUserGuard } from 'src/auth/same-user.guard';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
 
   @UseGuards(JwtAuthGuard,RolesGuard)
-  // @UseGuards(RolesGuard)
-  // @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN)
   @Get(':id')
   findOne(@Param('id') id: number, req: Request): Promise<User> {
     return this.usersService.findOne(id);
   }
 
 
-  // @UseGuards(JwtAuthGuard,RolesGuard)
-  // @UseGuards(RolesGuard)
-  // @Roles(Role.ADMIN)
-
+   @UseGuards(JwtAuthGuard,SameUserGuard)
   @Get(':id/cart')
   getUserCartWithBooks(@Param('id') id: number, req: Request): Promise<Cart> {
-    return this.usersService.getUserCartWithBooks(id);
+    return this.usersService.getUserCart(id);
   }
 
 }

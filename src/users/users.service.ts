@@ -9,7 +9,10 @@ export class UsersService {
     constructor(
         @InjectRepository(User)
         private usersRepository: Repository<User>,  // Inject the users repository
+        @InjectRepository(Cart)      
+        private cartRepository: Repository<Cart>,  // Inject the users repository
 
+        
     ) { }
 
  
@@ -41,20 +44,18 @@ export class UsersService {
         }
     
 
-async getUserCartWithBooks(userId: number): Promise<Cart> {
+async getUserCart(id: number): Promise<Cart> {
     // Retrieve the cart of the user with associated cartBooks and book details
-    
-    const user = await this.usersRepository
-    .createQueryBuilder('user')
-    .leftJoinAndSelect('user.cart', 'cart') // Join cart
-    .leftJoinAndSelect('cart.cartBooks', 'cartBooks') // Join cartBooks
-    .leftJoinAndSelect('cartBooks.book', 'book') // Join books inside cartBooks
-    .where('user.id = :userId', { userId })
-    .getOne(); // You want to get the user with their cart, not just cart
+    // Fetch the user's cart with related cart items and books
+    const cart = await this.cartRepository.findOne({
+        where: { user: { id } },
+        relations: ['cartItems', 'cartItems.book'], // Load cart items and associated books
+      });
+  
+      if (!cart) {
+        throw new Error('Cart not found for this user');
+      }
 
-  if (!user || !user.cart) {
-      throw new NotFoundException(`Cart for user with ID ${userId} not found`);
-  }
-  return user.cart; // Return only the cart entity
+      return cart;
 }
 }

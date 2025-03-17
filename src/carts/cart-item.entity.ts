@@ -3,16 +3,16 @@ import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column } from 't
 import { Cart } from 'src/carts/cart.entity';
 import { Book } from 'src/books/book.entity';
 
-@Entity('cart_books')
-export class CartBook {
+@Entity('cart_items')
+export class CartItem {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Cart, (cart) => cart.cartBooks)
+  @ManyToOne(() => Cart, (cart) => cart.cartItems)
   @JoinColumn({ name: 'cart_id' })
   cart: Cart;
 
-  @ManyToOne(() => Book, (book) => book.cartBooks)
+  @ManyToOne(() => Book, (book) => book.cartItems)
   @JoinColumn({ name: 'book_id' })
   book: Book;
 

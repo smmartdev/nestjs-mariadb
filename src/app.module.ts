@@ -11,7 +11,7 @@ import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { Cart } from './carts/cart.entity';
-import { CartBook } from './carts/cart-book.enitiy';
+import { CartItem } from './carts/cart-item.entity';
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { CartBook } from './carts/cart-book.enitiy';
       username: 'root',   // Your MariaDB username
       password: 'root', // Your MariaDB password
       database: 'nestjs',  // Name of your MariaDB database
-      entities: [Book,Author,User,RefreshToken,Cart,CartBook],
+      entities: [Book,Author,User,RefreshToken,Cart,CartItem],
       synchronize: true,  // Automatically create database schema
     }),
     BooksModule,
